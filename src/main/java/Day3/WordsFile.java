@@ -1,3 +1,5 @@
+package Day3;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,7 +9,7 @@ import java.util.Scanner;
 
 
 
-public class char1 {
+public class WordsFile {
 
 
         public static void main(String[] args) {

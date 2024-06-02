@@ -1,4 +1,5 @@
-import java.net.SocketOption;
+package Day1;
+
 import java.util.Scanner;
 
 public class days {

@@ -1,5 +1,6 @@
+package Day3;
 
-public class CheckingAccount extends Account{
+public class CheckingAccount extends Account {
     public CheckingAccount(String name, double balance, double annanualRate) {
         super(name, balance, annanualRate);
     }
