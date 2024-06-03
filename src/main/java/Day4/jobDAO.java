@@ -1,20 +1,21 @@
 package Day4;
-import Day4.Job;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 public class jobDAO {
+
     private static final String URL = "jdbc:sqlite:C:\\Users\\dev\\IdeaProjects\\untitled2\\src\\main\\java\\Day4\\hr.db";
-    private static final String SELECT_ALL_JOBS = "select * from Jobs";
-    private static final String SELECT_ONE_JOBS = "select * from Jobs where job_id = ?";
-    private static final String INSERT_JOBS = "insert into Jobs values (?, ?, ? ,?)";
-    private static final String UPDATE_JOBS = "update Jobs set job_title = ? ,min_salary = ?, max_salary = ? where job_id = ?";
-    private static final String DELETE_JOBS = "delete from Jobs where job_id = ?";
+    private static final String SELECT_ALL_JOBS = "select * from departments";
+    private static final String SELECT_ONE_JOBS = "select * from jobs where job_id = ?";
+    private static final String INSERT_JOB = "insert into jobs values (?, ?, ?)";
+    private static final String UPDATE_JOB = "update jobs set job_title = ?, min_salary = ?, max_salary ? = where job_id = ?";
+    private static final String DELETE_JOB = "delete from job where job_id = ?";
 
-    public void setInsertJobs(Job d) throws SQLException {
+
+    public void insertJob(Jobs d) throws SQLException {
         Connection conn = DriverManager.getConnection(URL);
-        PreparedStatement st = conn.prepareStatement(INSERT_JOBS);
+        PreparedStatement st = conn.prepareStatement(INSERT_JOB);
         st.setInt(1, d.getJob_id());
         st.setString(2, d.getJob_title());
         st.setDouble(3, d.getMin_salary());
@@ -22,9 +23,9 @@ public class jobDAO {
         st.executeUpdate();
     }
 
-    public void setUpdateJobs(Job d) throws SQLException {
+    public void updateJob(Jobs d) throws SQLException {
         Connection conn = DriverManager.getConnection(URL);
-        PreparedStatement st = conn.prepareStatement(UPDATE_JOBS);
+        PreparedStatement st = conn.prepareStatement(UPDATE_JOB);
         st.setInt(1, d.getJob_id());
         st.setString(2, d.getJob_title());
         st.setDouble(3, d.getMin_salary());
@@ -32,35 +33,36 @@ public class jobDAO {
         st.executeUpdate();
     }
 
-    public void setUpdateJobs(int deptId) throws SQLException {
+    public void deleteJob(int job_id) throws SQLException {
         Connection conn = DriverManager.getConnection(URL);
-        PreparedStatement st = conn.prepareStatement(DELETE_JOBS);
-        st.setInt(1, deptId);
+        PreparedStatement st = conn.prepareStatement(DELETE_JOB);
+        st.setInt(1, job_id);
         st.executeUpdate();
     }
 
-    public Job selectJobs(int job_id) throws SQLException {
+    public Jobs selectJob(int job_id) throws SQLException {
         Connection conn = DriverManager.getConnection(URL);
         PreparedStatement st = conn.prepareStatement(SELECT_ONE_JOBS);
         st.setInt(1, job_id);
         ResultSet rs = st.executeQuery();
-        if(rs.next()) {
-            return new Job(rs);
-        }
-        else {
+        if (rs.next()) {
+            return new Jobs(rs);
+        } else {
             return null;
         }
     }
 
-    public ArrayList<Job> selectAllJobs() throws SQLException {
+    public ArrayList<Jobs> SELECT_ALL_JOBS() throws SQLException {
         Connection conn = DriverManager.getConnection(URL);
         PreparedStatement st = conn.prepareStatement(SELECT_ALL_JOBS);
         ResultSet rs = st.executeQuery();
-        ArrayList<Job> jobs = new ArrayList<>();
+        ArrayList<Jobs> Jobs = new ArrayList<>();
         while (rs.next()) {
-            jobs.add(new Job(rs));
+            Jobs.add(new Jobs(rs));
         }
 
-        return jobs;
+        return Jobs;
     }
+
+
 }
